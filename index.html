@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bengal TV - লাইভ টিভি চ্যানেল</title>
+    
+    <!-- SEO Meta -->
+    <meta name="author" content="Bengal TV">
+    <meta name="description" content="Bengal TV - বাংলাদেশের সবচেয়ে জনপ্রিয় লাইভ টিভি চ্যানেল স্ট্রিমিং প্ল্যাটফর্ম">
+    <meta name="keywords" content="লাইভ টিভি, বাংলা চ্যানেল, বাংলাদেশ, স্ট্রিমিং, Bengal TV, টিভি চ্যানেল">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #E53E3E;
+            --primary-dark: #C53030;
+            --secondary-color: #2D3748;
+            --accent-color: #F56565;
+            --light-bg: #F7FAFC;
+            --dark-bg: #1A202C;
+            --text-dark: #2D3748;
+            --text-light: #718096;
+            --text-white: #F7FAFC;
+            --card-bg: #FFFFFF;
+            --border-color: #E2E8F0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --radius: 12px;
+            --radius-sm: 8px;
+        }
+        
+        body {
+            font-family: 'Hind Siliguri', 'Noto Sans Bengali', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            direction: ltr;
+        }
+        
+        .bangla-font {
+            font-family: 'Noto Sans Bengali', 'Hind Siliguri', sans-serif;
+        }
+        
+        /* Header Styles */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            font-size: 2rem;
+            color: white;
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        
+        .tagline {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: 2px;
+        }
+        
+        /* Main Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+        
+        /* Player Section */
+        .player-wrapper {
+            width: 100%;
+            background: var(--dark-bg);
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        #playerFrame {
+            width: 100%;
+            height: 450px;
+            border: none;
+            display: block;
+        }
+        
+        /* Search Section */
+        .search-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1);
+        }
+        
+        /* Category Navigation */
+        .category-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+            padding: 0 0.5rem;
+        }
+        
+        .category-btn {
+            padding: 0.6rem 1.2rem;
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 50px;
+            font-family: inherit;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .category-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .category-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        /* Channel Grid */
+        .channel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .channel-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .channel-grid {
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            }
+        }
+        
+        .channel-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .channel-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .channel-card img {
+            width: 100%;
+            height: 100px;
+            object-fit: contain;
+            background: #f8f9fa;
+            padding: 15px;
+        }
+        
+        .channel-info {
+            padding: 0.8rem;
+            text-align: center;
+            font-weight: 500;
+            border-top: 1px solid var(--border-color);
+            background: white;
+        }
+        
+        .favorite-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            transition: all 0.3s ease;
+            color: var(--text-light);
+        }
+        
+        .favorite-btn:hover {
+            background: white;
+            color: var(--primary-color);
+            transform: scale(1.1);
+        }
+        
+        .favorite-btn.active {
+            color: var(--primary-color);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--secondary-color);
+            color: var(--text-white);
+            padding: 2.5rem 1.5rem 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-section h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.2rem;
+            color: white;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-color);
+        }
+        
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+        
+        .footer-link {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .footer-link:hover {
+            color: var(--accent-color);
+        }
+        
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 2rem auto 0;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+        
+        .footer-bottom a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+        
+        /* Utility Classes */
+        .hidden {
+            display: none !important;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-light);
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 2rem;
+            grid-column: 1 / -1;
+            color: var(--text-light);
+        }
+        
+        /* Now Playing Indicator */
+        .now-playing {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--primary-color);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            z-index: 10;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            
+            #playerFrame {
+                height: 300px;
+            }
+            
+            .category-nav {
+                justify-content: center;
+            }
+            
+            .logo-text {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-container {
+                padding: 1rem;
+            }
+            
+            #playerFrame {
+                height: 250px;
+            }
+            
+            .category-nav {
+                overflow-x: auto;
+                padding-bottom: 10px;
+                margin-left: -0.5rem;
+                margin-right: -0.5rem;
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+            }
+            
+            .category-btn {
+                white-space: nowrap;
+            }
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .channel-card {
+            animation: fadeIn 0.3s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-tv logo-icon"></i>
+                <div>
+                    <div class="logo-text bangla-font">বেঙ্গল টিভি</div>
+                    <div class="tagline">বাংলাদেশের সবচেয়ে জনপ্রিয় লাইভ টিভি চ্যানেল</div>
+                </div>
+            </div>
+            <div class="tagline">সরাসরি সম্প্রচার</div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- Player Section -->
+        <div class="player-wrapper">
+            <iframe id="playerFrame" src="player.php?stream=edge2/tsports" 
+                    allowfullscreen 
+                    allow="autoplay; encrypted-media; playsinline">
+            </iframe>
+        </div>
+
+        <!-- Search Section -->
+        <div class="search-section">
+            <input type="text" id="channelSearch" class="search-input bangla-font" 
+                   placeholder="চ্যানেল খুঁজুন...">
+        </div>
+
+        <!-- Category Navigation -->
+        <div class="category-nav">
+            <button class="category-btn active" data-category="*">
+                <i class="fas fa-th-large"></i> সব চ্যানেল
+            </button>
+            <button class="category-btn" data-category="favorites">
+                <i class="fas fa-star"></i> পছন্দের
+            </button>
+            <button class="category-btn" data-category="sports">
+                <i class="fas fa-futbol"></i> খেলাধুলা
+            </button>
+            <button class="category-btn" data-category="bangla">
+                <i class="fas fa-flag"></i> বাংলা চ্যানেল
+            </button>
+            <button class="category-btn" data-category="inbangla">
+                <i class="fas fa-film"></i> ভারতীয় বাংলা
+            </button>
+            <button class="category-btn" data-category="hindi">
+                <i class="fas fa-bolt"></i> হিন্দি চ্যানেল
+            </button>
+            <button class="category-btn" data-category="english">
+                <i class="fas fa-globe"></i> ইংরেজি
+            </button>
+            <button class="category-btn" data-category="music">
+                <i class="fas fa-music"></i> মিউজিক
+            </button>
+            <button class="category-btn" data-category="kids">
+                <i class="fas fa-child"></i> শিশুদের
+            </button>
+            <button class="category-btn" data-category="documentary">
+                <i class="fas fa-binoculars"></i> ডকুমেন্টারি
+            </button>
+        </div>
+
+        <!-- Channel Grid -->
+        <div class="channel-grid" id="channelGrid">
+            <!-- চ্যানেল কার্ডগুলি এখানে লোড হবে -->
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3 class="bangla-font">বেঙ্গল টিভি</h3>
+                <p>বাংলাদেশের সবচেয়ে জনপ্রিয় লাইভ টিভি চ্যানেল স্ট্রিমিং প্ল্যাটফর্ম। সকল বাংলা ও আন্তর্জাতিক চ্যানেল একসাথে উপভোগ করুন।</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="bangla-font">দরকারি লিংক</h3>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">
+                        <i class="fas fa-question-circle"></i> সাহায্য কেন্দ্র
+                    </a>
+                    <a href="#" class="footer-link">
+                        <i class="fas fa-envelope"></i> যোগাযোগ করুন
+                    </a>
+                    <a href="#" class="footer-link">
+                        <i class="fas fa-shield-alt"></i> গোপনীয়তা নীতি
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-section">
+                <h3 class="bangla-font">সামাজিক যোগাযোগ</h3>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">
+                        <i class="fab fa-facebook"></i> Facebook
+                    </a>
+                    <a href="#" class="footer-link">
+                        <i class="fab fa-youtube"></i> YouTube
+                    </a>
+                    <a href="#" class="footer-link">
+                        <i class="fab fa-twitter"></i> Twitter
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; ২০১৫-২০২৬ <a href="#">বেঙ্গল টিভি</a> - সকল অধিকার সংরক্ষিত</p>
+            <p>ডেভেলপ করেছেন: <a href="#">বেঙ্গল টিভি টিম</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // চ্যানেল ডেটা
+        const channels = [
+            // Sports Channels
+            { title: "T Sports", tags: "sports", stream: "edge2/tsports", img: "https://tvassets.roarzone.info/images/102.png" },
+            { title: "Star Sports 1", tags: "sports", stream: "edge2/star-sports-1", img: "https://tvassets.roarzone.info/images/25.png" },
+            { title: "Star Sports 2", tags: "sports", stream: "edge2/star-sports-2", img: "https://tvassets.roarzone.info/images/26.png" },
+            { title: "Sony Ten 1", tags: "sports", stream: "edge2/sony-sports-1-hd", img: "https://tvassets.roarzone.info/images/20.png" },
+            { title: "Sony Ten 2", tags: "sports", stream: "edge2/sony-sports-2-hd", img: "https://tvassets.roarzone.info/images/21.png" },
+            { title: "Sony Ten 3", tags: "sports", stream: "edge2/sony-sports-3-hd", img: "https://tvassets.roarzone.info/images/22.png" },
+            
+            // Bengali Channels
+            { title: "Jamuna TV", tags: "bangla", stream: "edge2/jamunatv", img: "https://tvassets.roarzone.info/images/13.png" },
+            { title: "Somoy TV", tags: "bangla", stream: "edge2/somoy", img: "https://tvassets.roarzone.info/images/17.png" },
+            { title: "Channel 24", tags: "bangla", stream: "edge2/channel24", img: "https://tvassets.roarzone.info/images/5.png" },
+            { title: "ATN Bangla", tags: "bangla", stream: "bk/2", img: "https://tvassets.roarzone.info/images/2.png" },
+            { title: "Channel I", tags: "bangla", stream: "bk/6", img: "https://tvassets.roarzone.info/images/6.png" },
+            { title: "Ekattor TV", tags: "bangla", stream: "bk/11", img: "https://tvassets.roarzone.info/images/11.png" },
+            { title: "BTV", tags: "bangla", stream: "bk/53", img: "https://tvassets.roarzone.info/images/53.png" },
+            { title: "NTV", tags: "bangla", stream: "bk/54", img: "https://tvassets.roarzone.info/images/54.png" },
+            { title: "RTV", tags: "bangla", stream: "bk/14", img: "https://tvassets.roarzone.info/images/14.png" },
+            
+            // Indian Bengali Channels
+            { title: "Star Jalsha", tags: "inbangla", stream: "bk/30", img: "https://tvassets.roarzone.info/images/30.png" },
+            { title: "Zee Bangla", tags: "inbangla", stream: "bk/34", img: "https://tvassets.roarzone.info/images/34.png" },
+            { title: "Colors Bangla", tags: "inbangla", stream: "bk/66", img: "https://tvassets.roarzone.info/images/66.png" },
+            
+            // Hindi Channels
+            { title: "Sony TV", tags: "hindi", stream: "bk/38", img: "https://tvassets.roarzone.info/images/38.png" },
+            { title: "Star Plus", tags: "hindi", stream: "bk/67", img: "https://tvassets.roarzone.info/images/67.png" },
+            { title: "ZEE TV", tags: "hindi", stream: "bk/40", img: "https://tvassets.roarzone.info/images/40.png" },
+            { title: "Colors", tags: "hindi", stream: "bk/68", img: "https://tvassets.roarzone.info/images/68.png" },
+            
+            // English Channels
+            { title: "Star Movies", tags: "english", stream: "bk/starmovies", img: "https://tvassets.roarzone.info/images/starmovies.png" },
+            { title: "Sony Pix", tags: "english", stream: "bk/41", img: "https://tvassets.roarzone.info/images/41.png" },
+            { title: "DW NEWS", tags: "english", stream: "bk/85", img: "https://tvassets.roarzone.info/images/85.png" },
+            { title: "Al Jazeera", tags: "english", stream: "bk/89", img: "https://tvassets.roarzone.info/images/89.png" },
+            
+            // Music Channels
+            { title: "Gaan Bangla", tags: "music", stream: "bk/58", img: "https://tvassets.roarzone.info/images/58.png" },
+            { title: "9xM", tags: "music", stream: "bk/48", img: "https://tvassets.roarzone.info/images/48.png" },
+            { title: "ZING", tags: "music", stream: "toffee/Zing", img: "https://tvassets.roarzone.info/images/93.png" },
+            
+            // Kids Channels
+            { title: "Cartoon Network", tags: "kids", stream: "bk/79", img: "https://tvassets.roarzone.info/images/79.png" },
+            { title: "Nick", tags: "kids", stream: "bk/55", img: "https://tvassets.roarzone.info/images/55.png" },
+            { title: "POGO", tags: "kids", stream: "toffee/pogo_sd", img: "https://tvassets.roarzone.info/images/pogo.png" },
+            
+            // Documentary Channels
+            { title: "Discovery HD", tags: "documentary", stream: "bk/83", img: "https://tvassets.roarzone.info/images/43.png" },
+            { title: "Natgeo", tags: "documentary", stream: "bk/35", img: "https://tvassets.roarzone.info/images/35.png" },
+            { title: "Animal Planet", tags: "documentary", stream: "toffee/animal_planet_hd", img: "https://tvassets.roarzone.info/images/animalplanet.png" }
+        ];
+
+        // Favorites functionality
+        function getFavorites() {
+            const favs = localStorage.getItem('bengaltv_favorites');
+            return favs ? JSON.parse(favs) : [];
+        }
+        
+        function saveFavorites(favorites) {
+            localStorage.setItem('bengaltv_favorites', JSON.stringify(favorites));
+        }
+        
+        function toggleFavorite(streamName, btn) {
+            let favorites = getFavorites();
+            const index = favorites.indexOf(streamName);
+            
+            if (index > -1) {
+                // Remove from favorites
+                favorites.splice(index, 1);
+                btn.querySelector('i').classList.remove('fas');
+                btn.querySelector('i').classList.add('far');
+                btn.classList.remove('active');
+            } else {
+                // Add to favorites
+                favorites.push(streamName);
+                btn.querySelector('i').classList.remove('far');
+                btn.querySelector('i').classList.add('fas');
+                btn.classList.add('active');
+            }
+            
+            saveFavorites(favorites);
+            
+            // Refresh favorites category if active
+            if (document.querySelector('.category-btn.active').dataset.category === 'favorites') {
+                filterChannels('favorites');
+            }
+        }
+        
+        // Play channel function
+        function playChannel(streamName) {
+            const playerFrame = document.getElementById('playerFrame');
+            playerFrame.src = `player.php?stream=${streamName}`;
+            
+            // Update active channel indicator
+            document.querySelectorAll('.now-playing').forEach(el => el.remove());
+            
+            const activeCard = document.querySelector(`[data-stream="${streamName}"]`);
+            if (activeCard) {
+                const nowPlaying = document.createElement('div');
+                nowPlaying.className = 'now-playing';
+                nowPlaying.textContent = 'লাইভ';
+                activeCard.appendChild(nowPlaying);
+                
+                // Scroll to player
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+        
+        // Filter channels by category
+        function filterChannels(category) {
+            const grid = document.getElementById('channelGrid');
+            const searchTerm = document.getElementById('channelSearch').value.toLowerCase();
+            const favorites = getFavorites();
+            
+            let filteredChannels = channels;
+            
+            // Apply search filter
+            if (searchTerm) {
+                filteredChannels = filteredChannels.filter(channel => 
+                    channel.title.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            // Apply category filter
+            if (category !== '*') {
+                if (category === 'favorites') {
+                    filteredChannels = filteredChannels.filter(channel => 
+                        favorites.includes(channel.stream)
+                    );
+                } else {
+                    filteredChannels = filteredChannels.filter(channel => 
+                        channel.tags === category
+                    );
+                }
+            }
+            
+            // Clear grid
+            grid.innerHTML = '';
+            
+            // Show no results message
+            if (filteredChannels.length === 0) {
+                const noResults = document.createElement('div');
+                noResults.className = 'no-results bangla-font';
+                noResults.textContent = 'কোন চ্যানেল পাওয়া যায়নি';
+                grid.appendChild(noResults);
+                return;
+            }
+            
+            // Render filtered channels
+            filteredChannels.forEach((channel, index) => {
+                const isFavorite = favorites.includes(channel.stream);
+                
+                const card = document.createElement('div');
+                card.className = 'channel-card';
+                card.dataset.title = channel.title.toLowerCase();
+                card.dataset.tags = channel.tags;
+                card.dataset.stream = channel.stream;
+                
+                // Add delay for animation
+                card.style.animationDelay = `${index * 0.05}s`;
+                
+                card.innerHTML = `
+                    <button class="favorite-btn ${isFavorite ? 'active' : ''}" 
+                            onclick="event.stopPropagation(); toggleFavorite('${channel.stream}', this)">
+                        <i class="${isFavorite ? 'fas' : 'far'} fa-heart"></i>
+                    </button>
+                    
+                    <img src="${channel.img}" 
+                         alt="${channel.title}"
+                         loading="lazy"
+                         onerror="this.src='https://via.placeholder.com/180x100/1a202c/ffffff?text=${encodeURIComponent(channel.title)}'">
+                    
+                    <div class="channel-info bangla-font">
+                        ${channel.title}
+                    </div>
+                `;
+                
+                card.onclick = () => playChannel(channel.stream);
+                grid.appendChild(card);
+            });
+        }
+        
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load initial channels
+            filterChannels('*');
+            
+            // Set up category buttons
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Update active button
+                    document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Filter channels
+                    filterChannels(this.dataset.category);
+                });
+            });
+            
+            // Set up search input
+            document.getElementById('channelSearch').addEventListener('input', function() {
+                const activeCategory = document.querySelector('.category-btn.active').dataset.category;
+                filterChannels(activeCategory);
+            });
+            
+            // Play first channel by default
+            if (channels.length > 0) {
+                setTimeout(() => {
+                    playChannel(channels[0].stream);
+                }, 500);
+            }
+        });
+        
+        // Handle window resize for responsive design
+        window.addEventListener('resize', function() {
+            // Adjust player height on mobile
+            const playerFrame = document.getElementById('playerFrame');
+            if (window.innerWidth <= 768) {
+                playerFrame.style.height = '300px';
+            } else {
+                playerFrame.style.height = '450px';
+            }
+        });
+    </script>
+</body>
+</html>
